@@ -40,5 +40,17 @@ var button = d3.select("#filter-btn");
 // button click function 
 
 button.on("click", function() {
+    d3.event.preventDefault();
+    tbody.html("");
+    var datetimeInput = d3.select("datetime");
+    var inputvalue = datetimeInput.property("value");
+    var filterdata = data.filter(tbody => tbody.datetime === inputvalue);
 
-}
+    if (inputvalue === "") {
+        data.forEach(createTable);
+    }
+    else {
+        filterdata.forEach(createTable);
+    }
+
+});
