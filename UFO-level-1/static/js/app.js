@@ -37,3 +37,8 @@ data.forEach(function(ufoSighting) {
 
 var button = d3.select("#filter-btn");
 
+// button click function 
+
+button.on("click", function() {
+
+}
