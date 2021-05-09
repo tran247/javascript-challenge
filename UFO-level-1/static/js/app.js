@@ -32,3 +32,8 @@ data.forEach(function(ufoSighting) {
 });
 
 
+
+// Button reference with id 'filter-btn'
+
+var button = d3.select("#filter-btn");
+
