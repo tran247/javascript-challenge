@@ -1,56 +1,54 @@
 // from data.js
 var tableData = data;
 
-// YOUR CODE HERE!
-
-// reference the table body 
+// Using UFO data
 
 var tbody = d3.select("tbody");
 
-// console log the data from data.js
+// view table 
 
-// console.log(data);
-
-// Loop through data and console log ea ufo sighting 
-
-data.forEach(function(ufoSighting) {
-
-
-    // append one table row 'tr' for ea ufo sighting 
-
+data.forEach((ufo_info) => {
     var row = tbody.append("tr");
-
-    // use 'Object.entries' to console. log ea sighting
-
-    Object.entries(ufoSighting).forEach(function([key, value]) {
-        console.log(key, value);
-  
-        // append cell to the row for ea value 
-        var cell = row.append("td");
-        cell.text(value);
+    Object.entries(ufo_info).forEach(([Key,value]) => {
+       var cell = row.append("td");
+       cell.text(value);
     });
 });
 
-
-
-// Button reference with id 'filter-btn'
-
+// Select button
 var button = d3.select("#filter-btn");
 
-// button click function 
+//select form 
+var form = d3.select("#form");
 
-button.on("click", function() {
+//create handlers
+button.on("click",runEnter);
+
+// complete function for form
+
+function runEnter(){
+    // stop page from refreshing 
     d3.event.preventDefault();
+
+    //select input element 
+    var inputElement = d3.select("#datetime");
+
+    var inputValue = inputElement.property("value");
+
+    console.log(inputValue);
+    console.log(tableData);
+    var filteredData = data.filter(ufo => ufo.datetime === inputValue);
+    console.log(filteredData);
+    // remove from list
+
     tbody.html("");
-    var datetimeInput = d3.select("datetime");
-    var inputvalue = datetimeInput.property("value");
-    var filterdata = data.filter(tbody => tbody.datetime === inputvalue);
 
-    if (inputvalue === "") {
-        data.forEach(createTable);
-    }
-    else {
-        filterdata.forEach(createTable);
-    }
-
-});
+    // view table 
+    filteredData.forEach((ufo_info) => {
+        var row = tbody.append("tr");
+        Object.entries(ufo_info).forEach(([key, value]) => {
+            var cell = row.append("td");
+            cell.text(value);
+        });
+    });
+};
